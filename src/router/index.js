@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from "../pages/login";
-import EmpMain from "../pages/oldStuff/EmpMain";
 import home from "../layout/home";
 import TicketList from "../pages/ticketList";
 import test from "../pages/test";
 import page404 from '../pages/404'
 import travelList from "../pages/travelList";
+import addOrUpdateTravel from "../pages/addOrUpdateTravel";
+
 
 Vue.use(Router)
 
@@ -18,11 +19,11 @@ export default new Router({
     {path: '/home', name: 'home', component: home,
       children: [
         {path: 'ticketList', name: TicketList, component : TicketList},
-        {path: 'travelList', name: travelList, component: travelList}
+        {path: 'travelList', name: travelList, component: travelList},
+        {path: 'addOrUpdateTravel', name: addOrUpdateTravel, component: addOrUpdateTravel}
       ]
     },
-    {path: '/empMain', name: 'EmpMain', component: EmpMain},
-    {path: '/ticketList', name: 'TicketList', component: TicketList},
+    // {path: '/ticketList', name: 'TicketList', component: TicketList},
     {path: '/test', component: test, name: 'test'}
   ]
 })

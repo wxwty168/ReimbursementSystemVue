@@ -285,7 +285,7 @@ export default {
     },
     // 打开新增车票对话框
     handleOpenAddTravelDialog(){
-
+      this.$router.push('addOrUpdateTravel')
       // this.$refs.form.clearValidate();
     },
 
@@ -317,7 +317,7 @@ export default {
     },
     // 编辑操作方法
     handleOpenEditTravelDialog(row){
-
+      this.$router.push({path:'addOrUpdateTravel',query: {travelId:row.travelId}})
     },
     // 删除单条车票记录
     handleDeleteTravel(row,index){

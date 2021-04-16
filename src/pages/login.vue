@@ -99,6 +99,7 @@
                 sessionStorage.setItem("eno",res.data[1]["eno"])
                 sessionStorage.setItem("ename",res.data[1]["ename"])
                 sessionStorage.setItem("is_admin",res.data[1]["isAdmin"])
+                sessionStorage.setItem("avatar_url",res.data[1]["avatarUrl"])
                 this.$router.push({path: "/home/ticketList"})
                 this.showMessage("success","登录成功")
                 // this.$message({message: "登录成功",type: 'success'})

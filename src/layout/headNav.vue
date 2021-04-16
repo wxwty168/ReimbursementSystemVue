@@ -68,9 +68,16 @@
                             <template slot="title">
                                 <div class='welcome'>
                                     <span class="name">你好,</span>
-                                    <span class='name avatarname'>吴天宇</span>
+                                    <span class='name avatarname'>{{uName}}</span>
                                 </div>
-                                <img src="../assets/img/logo.png" class='avatar' alt="">
+                                <el-image
+                                  v-if="isShow"
+                                  class="avatar"
+                                  :src="url"
+                                  fit="cover"
+                                  >
+                                </el-image>
+                                <img src="../assets/img/user.png" class='avatar' alt="" v-if="!isShow">
                             </template>
                             <el-menu-item index="2-1" @click="setDialogInfo('info')">test1</el-menu-item>
                             <el-menu-item index="2-2" @click="setDialogInfo('pass')">test2</el-menu-item>
@@ -96,8 +103,14 @@
           name: 'head-nav',
           data(){
             return{
+              uName:sessionStorage.getItem("ename"),
               right_nav_width:100,
               headNavWidth:100,
+              isShow: true,
+              url: "http://localhost:8088/downloadPicture/"+sessionStorage.getItem("eno")+"/avatar/"+sessionStorage.getItem("avatar_url"),
+              srcList: [
+                "http://localhost:8088/downloadPicture/"+sessionStorage.getItem("eno")+"/ticketImg/"+'037632999d6c467fa05ae0ed63a14171_IMG_0123.jpg',
+              ],
                 // logo:logoImg,
                 // langLogo:getToken('langLogo') || americaImg,
                 // chinaImg:chinaImg,
@@ -132,6 +145,7 @@
           },
           mounted(){
             this.setRightNavWidth()
+            this.setAvatarUrl()
             window.onresize = () => {
               this.setRightNavWidth();
               // if(!this.timer){ // 使用节流机制，降低函数被触发的频率
@@ -145,11 +159,13 @@
             }
           },
           methods:{
-
+            setAvatarUrl(){
+              let avatarUrl = sessionStorage.getItem("avatar_url")
+              this.isShow = (null !== avatarUrl && '' !== avatarUrl);
+            },
             setRightNavWidth() {
               this.headNavWidth = document.body.clientWidth - this.sidebar.width
               let w = window.innerWidth;
-
               this.right_nav_width = w-180
 
             },
