@@ -203,6 +203,7 @@
         v-loading="loading"
         :data="tableData"
         border
+        :height="tableHeight"
         style="width: 100%;height:100%"
         align='center'
         @selection-change="handleSelectionChange">
@@ -470,6 +471,7 @@ export default {
   computed:{
   },
   mounted() {
+    this.setTableHeight()
     this.getTicketList();
     this.getAllProvinces();
     this.getAllTransportations();
@@ -697,7 +699,7 @@ export default {
      */
     setTableHeight(){
       this.$nextTick(() => {
-        this.tableHeight =  document.body.clientHeight - 322
+        this.tableHeight =  document.body.clientHeight - 271
       })
     },
     // 页码改变

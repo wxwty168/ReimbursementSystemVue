@@ -29,19 +29,6 @@
 
 
 
-<!--              <el-submenu index="1">-->
-<!--                <template slot="title">-->
-<!--                  <i class="el-icon-location"></i>-->
-<!--                  <span slot="title">导航一</span>-->
-<!--                </template>-->
-<!--                  <el-menu-item index="1-1">-->
-<!--                    <span slot="title">选项1</span>-->
-<!--                  </el-menu-item>-->
-<!--                  <el-menu-item index="1-2">-->
-<!--                    <span slot="title">选项2</span>-->
-<!--                  </el-menu-item>-->
-<!--              </el-submenu>-->
-
               <el-menu-item index="1" class="dropItem" @click="gotoTicketList">
                 <i class="el-icon-tickets"></i>
                 <span slot="title">车票信息</span>
@@ -50,15 +37,38 @@
                 <i class="el-icon-suitcase"></i>
                 <span slot="title">差旅信息</span>
               </el-menu-item>
-              <el-menu-item index="3" disabled class="dropItem">
-                <i class="el-icon-document"></i>
-                <span slot="title">导航三</span>
-              </el-menu-item>
-              <el-menu-item index="4" class="dropItem">
-                <i class="el-icon-setting"></i>
-                <span slot="title">导航四</span>
-              </el-menu-item>
+
+              <el-submenu index="3">
+                <template slot="title">
+                  <i class="el-icon-document-checked"></i>
+                  <span slot="title">报销审核</span>
+                </template>
+                <el-menu-item index="3-1" @click="gotoUnreviewed">
+                  <span slot="title">未审核</span>
+                </el-menu-item>
+                <el-menu-item index="3-2" @click="gotoPassed">
+                  <span slot="title">已通过</span>
+                </el-menu-item>
+                <el-menu-item index="3-3" @click="gotoFailed">
+                  <span slot="title">未通过</span>
+                </el-menu-item>
+              </el-submenu>
+
+              <el-submenu index="4">
+                <template slot="title">
+                  <i class="el-icon-setting"></i>
+                  <span slot="title">设置</span>
+                </template>
+                <el-menu-item index="4-1">
+                  <span slot="title">修改信息</span>
+                </el-menu-item>
+                <el-menu-item index="4-2" @click="logout">
+                  <span slot="title">退出登录</span>
+                </el-menu-item>
+              </el-submenu>
             </el-menu>
+
+
         </div>
 
     </div>
@@ -101,10 +111,23 @@ export default {
       this.activatedMenu = menuIndex.toString()
     },
     gotoTicketList(){
-      this.$router.push({path: "/home/ticketList"})
+      this.$router.push({path: "ticketList"})
     },
     gotoTravelList(){
-      this.$router.push({path: "/home/travelList"})
+      this.$router.push({path: "travelList"})
+    },
+    gotoUnreviewed(){
+      this.$router.push({path: 'reviewTravelList',query:{passed:'0'}})
+    },
+    gotoPassed(){
+      this.$router.push({path: 'reviewTravelList',query:{passed:'1'}})
+    },
+    gotoFailed(){
+      this.$router.push({path: 'reviewTravelList',query:{passed:'-1'}})
+    },
+    logout(){
+      sessionStorage.clear();
+      this.$router.push('/');
     }
     // getIindex(citem,item,cindex){
     //   return (citem.meta.titleList)?item.path+'/'+citem.path+'/'+citem.meta.titleList[0].path:item.path+'/'+citem.path;
