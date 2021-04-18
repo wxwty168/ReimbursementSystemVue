@@ -9,7 +9,7 @@
         <el-divider class="el-divider--horizontal"></el-divider>
       </div>
 
-<!--    需要提交的表单信息-->
+      <!--    需要提交的表单信息-->
       <div class="form">
 
         <el-form
@@ -22,7 +22,7 @@
             <el-col :span="12" >
               <el-form-item prop='travelId' label="单据序号 :" >
                 {{form.travelId}}
-<!--                {{form.travelId" style="width:96%" :disabled="isDisabled" readonly></el-input>-->
+                <!--                {{form.travelId" style="width:96%" :disabled="isDisabled" readonly></el-input>-->
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -72,7 +72,7 @@
         </el-form>
       </div>
 
-<!--    ticketsData-->
+      <!--    ticketsData-->
       <div class="table_container" style="clear: both">
         <div>
           <h4 style="float: left;margin-bottom: 17px;">车票信息</h4>
@@ -85,7 +85,7 @@
           height="300"
           style="width: 100%;height:100%"
           align='center'
-          >
+        >
           <el-table-column
             type="index"
             label="序号"
@@ -159,10 +159,6 @@
         </el-table>
       </div>
 
-      <div style="text-align: center;margin-bottom: 15px">
-        <el-button type="primary" size="mini" @click='review(1)' style="margin-right: 30px">审核通过</el-button>
-        <el-button type="danger" size="mini" @click='review(-1)'>不通过</el-button>
-      </div>
       <el-image-viewer
         v-if="showImageViewer"
         :on-close="()=>{showImageViewer=false}"
@@ -176,7 +172,7 @@
 import axios from "axios";
 
 export default {
-  name: "reviewTravel",
+  name: "viewTravel",
   components: {
     'el-image-viewer':()=>import('element-ui/packages/image/src/image-viewer')
   },
@@ -213,9 +209,6 @@ export default {
       },
     }
   },
-  created(){
-    this.$parent.changeActivatedMenu('3-1');
-  },
   mounted() {
     this.checkQuery()
   },
@@ -241,7 +234,7 @@ export default {
     },
     handleGoBack(){
       // this.$confirm(`数据暂未提交保存，是否返回？`).then(() => {
-        this.$router.go(-1)
+      this.$router.go(-1)
       // });
     },
     setTableHeight(){
@@ -253,39 +246,29 @@ export default {
       this.srcList[0] = "http://localhost:8088/downloadPicture/"+row.eno+"/ticketImg/"+row.ticketPhotoUrl
       this.showImageViewer = true
     },
-    review(passed){
-      axios.post("/submitReviewTravel/"+this.form.travelId+"/"+passed).then(res =>{
-        if (res.data === 'success'){
-          this.$message({type:"success",message:"提交成功!"})
-          this.$router.go(-1)
-        }else{
-          this.$message({type:"error",message:"提交失败,请稍后再试"})
 
-        }
-      })
-    }
   }
 }
 </script>
 
 <style scoped>
-  .container{
-    padding: 10px;
-    background: #fff;
-    border-radius: 2px;
-  }
-  .el-divider--horizontal{
-    clear: both;
-    margin: 30px 0 25px 0;
-  }
-  .btnRight {
-    margin-bottom: 10px;
-    float: right;
-    margin-right: 0px !important;
-  }
-  .table_container {
-    padding: 30px;
-    background: #fff;
-    border-radius: 2px;
-  }
+.container{
+  padding: 10px;
+  background: #fff;
+  border-radius: 2px;
+}
+.el-divider--horizontal{
+  clear: both;
+  margin: 30px 0 25px 0;
+}
+.btnRight {
+  margin-bottom: 10px;
+  float: right;
+  margin-right: 0px !important;
+}
+.table_container {
+  padding: 30px;
+  background: #fff;
+  border-radius: 2px;
+}
 </style>

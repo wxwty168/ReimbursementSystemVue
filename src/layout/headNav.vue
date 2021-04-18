@@ -79,9 +79,9 @@
                                 </el-image>
                                 <img src="../assets/img/user.png" class='avatar' alt="" v-if="!isShow">
                             </template>
-                            <el-menu-item index="2-1" @click="setDialogInfo('info')">test1</el-menu-item>
-                            <el-menu-item index="2-2" @click="setDialogInfo('pass')">test2</el-menu-item>
-                            <el-menu-item index="2-3" @click="setDialogInfo('logout')">退出登录</el-menu-item>
+<!--                            <el-menu-item index="2-1" @click="setDialogInfo('info')">test1</el-menu-item>-->
+                            <el-menu-item index="4-2" @click="setDialogInfo('changePassword')">修改密码</el-menu-item>
+                            <el-menu-item index="4-3" @click="setDialogInfo('logout')">退出登录</el-menu-item>
                         </el-submenu>
                     </el-menu>
                 </div>
@@ -185,8 +185,8 @@
                     case 'info':
                         this.$router.push('/infoManage/infoShow/infoShow1');
                         break;
-                    case 'pass':
-                        this.$router.push('/infoManage/infoModify/infoModify1');
+                    case 'changePassword':
+                        this.$router.push('changePassword');
                         break;
                     case 'logout':
                         this.logout();

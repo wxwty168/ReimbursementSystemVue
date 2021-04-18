@@ -31,7 +31,7 @@ export default {
       url: "http://localhost:8088/downloadPicture/"+sessionStorage.getItem("eno")+"/ticketImg/"+'037632999d6c467fa05ae0ed63a14171_IMG_0123.jpg',
       srcList: [
         "http://localhost:8088/downloadPicture/"+sessionStorage.getItem("eno")+"/ticketImg/"+'037632999d6c467fa05ae0ed63a14171_IMG_0123.jpg',
-      ]
+      ],
     }
   },
   methods: {

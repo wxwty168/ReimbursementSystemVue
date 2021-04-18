@@ -149,7 +149,7 @@
         >
           <template slot-scope="scope">
 
-            <span v-if="scope.row.passed===0" >{{ scope.row.passed }}未审核</span>
+            <span v-if="scope.row.passed===0" >未审核</span>
             <span v-if="scope.row.passed===1" style="color:#00d053">已通过</span>
             <span v-if="scope.row.passed===-1" style="color:#F56C6C">未通过</span>
           </template>
@@ -226,9 +226,18 @@ export default {
       // selectedData:[],// 用于存储当前选中的数据
     }
   },
-  created() {
-    // 修改默认选中的左菜单
-    // this.$parent.changeActivatedMenu(2);
+  created(){
+    switch (this.$route.query.passed) {
+      case '0':
+        this.$parent.changeActivatedMenu('3-1');
+        break
+      case '1':
+        this.$parent.changeActivatedMenu('3-2');
+        break
+      case '-1':
+        this.$parent.changeActivatedMenu('3-3');
+        break
+    }
   },
   mounted() {
     this.setTableHeight()

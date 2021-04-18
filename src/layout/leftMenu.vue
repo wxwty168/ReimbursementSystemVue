@@ -4,7 +4,7 @@
 
        <div class="menu_page_top rflex">
             <img :class='["logo",{"closeLogo":!sidebar.opened}]' :src="logo" alt="小爱admin" >
-            <span class='title' v-show="sidebar.opened">Vue<i>admin</i></span>
+            <span class='title' v-show="sidebar.opened">差旅报销系统<i></i></span>
         </div>
         <div class="menu_page_bottom is-scroll-left">
           <el-menu
@@ -38,7 +38,7 @@
                 <span slot="title">差旅信息</span>
               </el-menu-item>
 
-              <el-submenu index="3">
+              <el-submenu index="3" v-if="isAdmin === '1'">
                 <template slot="title">
                   <i class="el-icon-document-checked"></i>
                   <span slot="title">报销审核</span>
@@ -59,10 +59,10 @@
                   <i class="el-icon-setting"></i>
                   <span slot="title">设置</span>
                 </template>
-                <el-menu-item index="4-1">
-                  <span slot="title">修改信息</span>
+                <el-menu-item index="4-2" @click="gotoChangePassword">
+                  <span slot="title">修改密码</span>
                 </el-menu-item>
-                <el-menu-item index="4-2" @click="logout">
+                <el-menu-item index="4-3" @click="logout">
                   <span slot="title">退出登录</span>
                 </el-menu-item>
               </el-submenu>
@@ -85,6 +85,7 @@ export default {
   name: "left-Menu",
   data() {
     return {
+      isAdmin:sessionStorage.getItem('is_admin'),
       activatedMenu:'1',
        menuObj:{
          bgColor:'#fff',
@@ -125,6 +126,10 @@ export default {
     gotoFailed(){
       this.$router.push({path: 'reviewTravelList',query:{passed:'-1'}})
     },
+    gotoChangePassword(){
+      this.$router.push({path: 'changePassword'})
+    },
+
     logout(){
       sessionStorage.clear();
       this.$router.push('/');

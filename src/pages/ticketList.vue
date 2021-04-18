@@ -39,6 +39,7 @@
       top="8vh"
       :before-close="handleClose"
       >
+<!--      新增和编辑的表格-->
       <div class="form">
         <el-form
           ref="form"
@@ -229,6 +230,7 @@
         <el-table-column
           type="selection"
           align='center'
+          :selectable="checkBoxT"
           width="60">
         </el-table-column>
         <el-table-column
@@ -321,11 +323,21 @@
               icon='edit'
               size="mini"
               @click='handleOpenEditTicketDialog(scope.row)'
+              v-if="!scope.row.travelId"
             >编辑</el-button>
+            <el-button
+              type="primary"
+              icon='edit'
+              size="mini"
+              v-if="scope.row.travelId"
+              :disabled="!scope.row.ticketPhotoUrl"
+              @click='handleOpenViewTicketPhoto(scope.row)'
+            >查看照片</el-button>
             <el-button
               type="danger"
               icon='delete'
               size="mini"
+              v-if="!scope.row.travelId"
               @click='handleDeleteTicket(scope.row,scope.$index)'
             >删除</el-button>
           </template>
@@ -352,6 +364,10 @@
         @current-change="handleCurrentChange">
       </el-pagination>
     </div>
+    <el-image-viewer
+      v-if="showImageViewer"
+      :on-close="()=>{showImageViewer=false}"
+      :url-list="srcList" />
   </div>
 </template>
 
@@ -361,6 +377,9 @@ import axios from "axios";
 
 export default {
   name:"TicketList",
+  components: {
+    'el-image-viewer':()=>import('element-ui/packages/image/src/image-viewer')
+  },
   data(){
     let validateData = (rule, value, callback) => {
       if(value === ''){
@@ -463,12 +482,14 @@ export default {
       dialog: {
         width:'400px',
         formLabelWidth:'120px'
-      }
+      },
+      showImageViewer:false,
+      srcList: [],
     }
   },
-  components:{
-  },
-  computed:{
+  created() {
+    // 修改默认选中的左菜单
+    this.$parent.changeActivatedMenu('1');
   },
   mounted() {
     this.setTableHeight()
@@ -697,6 +718,9 @@ export default {
     /**
      * 车票数据表格区域方法
      */
+    checkBoxT(row, rowIndex){
+      return !row.travelId;
+    },
     setTableHeight(){
       this.$nextTick(() => {
         this.tableHeight =  document.body.clientHeight - 271
@@ -741,6 +765,12 @@ export default {
       })
       this.isVisible = true
     },
+    // 编辑操作方法
+    handleOpenViewTicketPhoto(row){
+      this.srcList[0] = "http://localhost:8088/downloadPicture/"+row.eno+"/ticketImg/"+row.ticketPhotoUrl
+      this.showImageViewer = true
+    },
+
     // 车票照片显示格式化
     ticketPhotoFormatter(row, column) {
       if (row.ticketPhotoUrl) {

@@ -29,6 +29,30 @@
           </el-date-picker>
           </div>
         </el-form-item>
+        <el-form-item label="状态" class="">
+          <el-select v-model="listQuery.passed" placeholder="请选择" style="width: 120px">
+            <el-option
+              key=""
+              label="全部"
+              value="">
+            </el-option>
+            <el-option
+              key="0"
+              label="未审核"
+              value="0">
+            </el-option>
+            <el-option
+              key="1"
+              label="已通过"
+              value="1">
+            </el-option>
+            <el-option
+              key="-1"
+              label="未通过"
+              value="-1">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item class="">
           <el-button type="primary" size ="mini" icon="search" @click='handleScreenOutTravels'>筛选</el-button>
         </el-form-item>
@@ -59,6 +83,7 @@
         <el-table-column
           type="selection"
           align='center'
+          :selectable='checkboxT'
           width="60">
         </el-table-column>
         <el-table-column
@@ -138,7 +163,7 @@
           width="75"
         >
           <template slot-scope="scope">
-            <span v-if="scope.row.passed===0" >{{ scope.row.passed }}未审核</span>
+            <span v-if="scope.row.passed===0" >未审核</span>
             <span v-if="scope.row.passed===1" style="color:#00d053">已通过</span>
             <span v-if="scope.row.passed===-1" style="color:#F56C6C">未通过</span>
           </template>
@@ -151,13 +176,12 @@
           width="150">
           <template slot-scope='scope'>
             <el-button
-              type="warning"
+              type="primary"
               icon='edit'
               size="mini"
               v-if="scope.row.passed===1"
-              disabled
-              @click='handleOpenEditTravelDialog(scope.row)'
-            >编辑</el-button>
+              @click='handleOpenViewTravelDialog(scope.row)'
+            >查看</el-button>
             <el-button
               type="warning"
               icon='edit'
@@ -165,14 +189,6 @@
               v-if="scope.row.passed!==1"
               @click='handleOpenEditTravelDialog(scope.row)'
             >编辑</el-button>
-            <el-button
-              type="danger"
-              icon='delete'
-              size="mini"
-              v-if="scope.row.passed===1"
-              disabled
-              @click='handleDeleteTravel(scope.row,scope.$index)'
-            >删除</el-button>
             <el-button
               type="danger"
               icon='delete'
@@ -221,6 +237,7 @@ export default {
         travelId:'', //查询关键词
         timeStart:'',
         timeEnd:'',
+        passed:'',
         eno:sessionStorage.getItem("eno")
       }, //查询条件
       // 表格区域
@@ -322,6 +339,9 @@ export default {
     /**
      * 车票数据表格区域方法
      */
+    checkboxT(row, rowIndex){
+      return row.passed !== 1;
+    },
     setTableHeight(){
       this.$nextTick(() => {
         this.tableHeight =  document.body.clientHeight - 271
@@ -348,6 +368,10 @@ export default {
     // 编辑操作方法
     handleOpenEditTravelDialog(row){
       this.$router.push({path:'addOrUpdateTravel',query: {travelId:row.travelId}})
+    },
+    // 查看已通过的差旅
+    handleOpenViewTravelDialog(row){
+      this.$router.push({path:'viewTravel',query: {travelId:row.travelId}})
     },
     // 删除单条车票记录
     handleDeleteTravel(row,index){
