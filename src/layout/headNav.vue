@@ -69,6 +69,7 @@
                                 <div class='welcome'>
                                     <span class="name">你好,</span>
                                     <span class='name avatarname'>{{uName}}</span>
+<!--                                    <span class="name">{{uTitle}}</span>-->
                                 </div>
                                 <el-image
                                   v-if="isShow"
@@ -104,6 +105,7 @@
           data(){
             return{
               uName:sessionStorage.getItem("ename"),
+              uTitle:sessionStorage.getItem("title"),
               right_nav_width:100,
               headNavWidth:100,
               isShow: true,

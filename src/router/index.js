@@ -12,6 +12,7 @@ import reviewTravelList from "../pages/adminOnly/reviewTravelList";
 import reviewTravel from "../pages/adminOnly/reviewTravel";
 import viewTravel from "../pages/viewTravel";
 import changePassword from "../pages/changePassword";
+import manageEmployees from "../pages/adminOnly/manageEmployees";
 
 
 Vue.use(Router)
@@ -29,6 +30,7 @@ const router = new Router({
         {path: 'addOrUpdateTravel', name: addOrUpdateTravel, component: addOrUpdateTravel},
         {path: 'reviewTravelList', name: reviewTravelList, component: reviewTravelList},
         {path: 'reviewTravel', name: reviewTravel, component: reviewTravel},
+        {path: 'manageEmployees', name: manageEmployees, component: manageEmployees},
         {path: 'changePassword', name: changePassword, component: changePassword},
         {path: '404', name: page404, component: page404},
         {path: '401', name: page401, component: page401},
@@ -40,7 +42,7 @@ const router = new Router({
   ],
 
 })
-const adminOnly = ["/home/reviewTravelList","/home/reviewTravel",]
+const adminOnly = ["/home/reviewTravelList","/home/reviewTravel","/home/manageEmployees",]
 //拦截器
 router.beforeEach((route, redirect, next) => {
   if (!sessionStorage.getItem("eno") && route.path !== '/') {
@@ -48,7 +50,7 @@ router.beforeEach((route, redirect, next) => {
       path: '/',
       query: {redirect: route.fullPath}
     })
-  } else if (sessionStorage.getItem("is_admin") !== '1' && adminOnly.indexOf(route.path) != -1){
+  } else if (sessionStorage.getItem("is_admin") !== '1' && adminOnly.indexOf(route.path) !== -1){
     next({
       path: '/home/401'
     })
@@ -59,7 +61,8 @@ router.beforeEach((route, redirect, next) => {
       })
     }else{
       next({
-        path: '/home/reviewTravelList?passed=0',
+        path: '/home/manageEmployees',
+        // path: '/home/reviewTravelList?passed=0',
       })
     }
 

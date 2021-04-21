@@ -4,7 +4,7 @@
 	  		<section class="form_contianer">
 			     <div class='titleArea rflex'>
 					<img class="logo" :src="logo" alt="小爱admin">
-					<span class='title'>小爱<i>Admin</i></span>
+					<span class='title'>差旅报销系统<i></i></span>
 				</div>
 		    	<el-form :model="loginForm" :rules="rules" ref="loginForm" class="loginForm">
 					<el-form-item prop="eno" class="login-item">
@@ -100,6 +100,9 @@
                 sessionStorage.setItem("ename",res.data[1]["ename"])
                 sessionStorage.setItem("is_admin",res.data[1]["isAdmin"])
                 sessionStorage.setItem("avatar_url",res.data[1]["avatarUrl"])
+                sessionStorage.setItem("rank",res.data[1]["rank"])
+                sessionStorage.setItem("title",res.data[1]["title"])
+                sessionStorage.setItem("dailyAllowance",res.data[1]["dailyAllowance"])
                 this.$router.push({path: "/home/ticketList"})
                 this.showMessage("success","登录成功")
                 // this.$message({message: "登录成功",type: 'success'})
