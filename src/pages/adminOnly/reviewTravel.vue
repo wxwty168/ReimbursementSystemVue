@@ -2,7 +2,7 @@
   <div class="fillcontain">
     <div class="container">
       <div>
-        <h3 style="padding-left: 15px;float: left">差旅报销</h3>
+        <h3 style="padding-left: 15px;float: left">审核报销</h3>
         <div class="btnRight" >
           <el-button size="mini" @click='handleGoBack' style="margin-right: 15px">返  回</el-button>
         </div>
@@ -189,8 +189,8 @@ export default {
       showImage: false,
       form:{
         travelId:'',
-        ename:sessionStorage.getItem("ename"),
-        eno:sessionStorage.getItem("eno"),
+        ename:'',
+        eno:'',
         firstDepartureTime:'',// 出发时间
         lastArrivalTime:'',// 返回时间
         daysOfTravel:'',// 天数
@@ -231,9 +231,6 @@ export default {
       if (travelId){
         axios.get("/getTravelByTravelId/"+travelId).then(response => {
           this.form = response.data.travelInfo
-          this.form.ename = sessionStorage.getItem("ename");
-          this.form.firstDepartureTime = this.form.firstDepartureTime.split('.')[0]
-          this.form.lastArrivalTime = this.form.lastArrivalTime.split('.')[0]
           this.ticketsData = response.data.ticketList
           this.isDisabled = false
         })

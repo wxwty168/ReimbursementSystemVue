@@ -103,7 +103,12 @@
                 sessionStorage.setItem("rank",res.data[1]["rank"])
                 sessionStorage.setItem("title",res.data[1]["title"])
                 sessionStorage.setItem("dailyAllowance",res.data[1]["dailyAllowance"])
-                this.$router.push({path: "/home/ticketList"})
+                if (res.data[1]['isAdmin'] === 1){
+                  // this.$router.push({path: "/home/manageEmployees?isDeleted=0"})
+                  this.$router.push({path: "/home/reimbursementStatistics"})
+                }else {
+                  this.$router.push({path: "/home/ticketList"})
+                }
                 this.showMessage("success","登录成功")
                 // this.$message({message: "登录成功",type: 'success'})
                 // this.$store.dispatch('initLeftMenu'); //设置左边菜单始终为展开状态

@@ -36,31 +36,31 @@
           <el-row>
             <el-col :span="12">
               <el-form-item prop='firstDepartureTime' label="出发时间" >
-                <el-input type="text" v-model="form.firstDepartureTime" style="width:96%" readonly></el-input>
+                <el-input type="text" v-model="form.firstDepartureTime" style="width:96%" readonly placeholder="选择车票信息后自动填写"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item prop='lastArrivalTime' label="返回时间" >
-                <el-input type="text" v-model="form.lastArrivalTime" style="width:96%" readonly></el-input>
+                <el-input type="text" v-model="form.lastArrivalTime" style="width:96%" readonly placeholder="选择车票信息后自动填写"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
               <el-form-item prop='daysOfTravel' label="天数" >
-                <el-input type="text" v-model="form.daysOfTravel" style="width:96%" readonly></el-input>
+                <el-input type="text" v-model="form.daysOfTravel" style="width:96%" readonly placeholder="选择车票信息后自动填写"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item prop='totalReimbursement' label="报销金额" >
-                <el-input type="text" v-model="form.totalReimbursement" style="width:96%" readonly></el-input>
+                <el-input type="text" v-model="form.totalReimbursement" style="width:96%" readonly placeholder="点击计算补助后自动填写"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
               <el-form-item prop='travelDescription' label="出差事由" >
-                <el-input type="text" v-model="form.travelDescription" style="width:96%"></el-input>
+                <el-input type="text" v-model="form.travelDescription" style="width:96%" placeholder="请输入出差事由"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -231,7 +231,7 @@
       <div class="table_container" style="clear: both">
         <div>
           <h4 style="float: left">补助信息</h4>
-          <span style="color:#E6A23C;padding-left: 10px">补助 : 200/天</span>
+          <span style="color:#E6A23C;padding-left: 10px">补助 : {{ this.dailySubsidy }}/天</span>
           <div class="btnRight">
             <el-button type="primary" size="mini" @click='handleCalcSubsidy' >计算补助</el-button>
           </div>
@@ -303,6 +303,7 @@ export default {
   data(){
 
     return{
+      dailySubsidy:sessionStorage.getItem("dailyAllowance"),
       isDisabled: true,
       form:{
         travelId:'',
@@ -534,10 +535,10 @@ export default {
         startTime:this.form.firstDepartureTime,
         endTime:this.form.lastArrivalTime,
         subsidyDays:this.form.daysOfTravel,
-        subsidyAmount: this.form.daysOfTravel*200
+        subsidyAmount: this.form.daysOfTravel*this.dailySubsidy
       }
       this.subsidyData.push(subsidyInfoDemo)
-      let totalSubsidyAmount = this.form.daysOfTravel*200
+      let totalSubsidyAmount = this.form.daysOfTravel*this.dailySubsidy
       this.form.subsidyAmount = totalSubsidyAmount
       let totalTicketPrice = 0
       this.ticketsData.forEach(function (item) {

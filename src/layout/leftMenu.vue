@@ -29,14 +29,19 @@
 
 
 
-              <el-menu-item index="1" class="dropItem" @click="gotoTicketList">
+              <el-menu-item index="1" class="dropItem" @click="gotoTicketList" v-if="isAdmin !== '1'">
                 <i class="el-icon-tickets"></i>
                 <span slot="title">车票信息</span>
               </el-menu-item>
-              <el-menu-item index="2" class="dropItem" @click="gotoTravelList">
+              <el-menu-item index="2" class="dropItem" @click="gotoTravelList" v-if="isAdmin !== '1'">
                 <i class="el-icon-suitcase"></i>
                 <span slot="title">差旅信息</span>
               </el-menu-item>
+
+            <el-menu-item index="6" class="dropItem" @click="gotoReimbursementStatistics" v-if="isAdmin === '1'">
+              <i class="el-icon-data-analysis"></i>
+              <span slot="title">报销统计</span>
+            </el-menu-item>
 
               <el-submenu index="5" v-if="isAdmin === '1'">
                 <template slot="title">
@@ -66,6 +71,8 @@
                   <span slot="title">未通过</span>
                 </el-menu-item>
               </el-submenu>
+
+
 
               <el-submenu index="4">
                 <template slot="title">
@@ -142,10 +149,12 @@ export default {
     gotoFailed(){
       this.$router.push({path: 'reviewTravelList',query:{passed:'-1'}})
     },
+    gotoReimbursementStatistics(){
+      this.$router.push({path: 'ReimbursementStatistics'})
+    },
     gotoChangePassword(){
       this.$router.push({path: 'changePassword'})
     },
-
     logout(){
       sessionStorage.clear();
       this.$router.push('/');

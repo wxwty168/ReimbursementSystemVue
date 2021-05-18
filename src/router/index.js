@@ -13,6 +13,7 @@ import reviewTravel from "../pages/adminOnly/reviewTravel";
 import viewTravel from "../pages/viewTravel";
 import changePassword from "../pages/changePassword";
 import manageEmployees from "../pages/adminOnly/manageEmployees";
+import reimbursementStatistics from "../pages/adminOnly/reimbursementStatistics";
 
 
 Vue.use(Router)
@@ -31,6 +32,7 @@ const router = new Router({
         {path: 'reviewTravelList', name: reviewTravelList, component: reviewTravelList},
         {path: 'reviewTravel', name: reviewTravel, component: reviewTravel},
         {path: 'manageEmployees', name: manageEmployees, component: manageEmployees},
+        {path: 'reimbursementStatistics', name: reimbursementStatistics, component: reimbursementStatistics},
         {path: 'changePassword', name: changePassword, component: changePassword},
         {path: '404', name: page404, component: page404},
         {path: '401', name: page401, component: page401},
@@ -42,7 +44,8 @@ const router = new Router({
   ],
 
 })
-const adminOnly = ["/home/reviewTravelList","/home/reviewTravel","/home/manageEmployees",]
+const adminOnly = ["/home/reviewTravelList","/home/reviewTravel","/home/manageEmployees",
+  "/home/reimbursementStatistics",]
 //拦截器
 router.beforeEach((route, redirect, next) => {
   if (!sessionStorage.getItem("eno") && route.path !== '/') {
@@ -61,7 +64,8 @@ router.beforeEach((route, redirect, next) => {
       })
     }else{
       next({
-        path: '/home/manageEmployees',
+        path: '/home/reimbursementStatistics',
+        // path: '/home/manageEmployees?isDeleted=0',
         // path: '/home/reviewTravelList?passed=0',
       })
     }

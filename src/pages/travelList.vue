@@ -17,13 +17,13 @@
           <div class="block">
             <el-date-picker
               v-model="submitTimeRange"
-              type="daterange"
+              type="monthrange"
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
-              format="yyyy-MM-dd"
+              format="yyyy-MM"
               value-format="yyyy-MM-dd"
-              style="width: 280px;padding:initial;box-sizing: initial;height: initial;line-height: initial"
+              style="width: 200px;padding:initial;box-sizing: initial;height: initial;line-height: initial"
               @keyup.enter.native="handleScreenOutTravels"
             >
           </el-date-picker>
