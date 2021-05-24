@@ -86,14 +86,14 @@
           prop="totalTimes"
           label="报销次数"
           align='center'
-
+          sortable
         >
         </el-table-column>
         <el-table-column
           prop="totalReimbursement"
           label="报销金额"
           align='center'
-
+          sortable
         >
           <!--          <template slot-scope="scope">-->
           <!--            <span style="color:#f56767">{{ scope.row.pay }}</span>-->

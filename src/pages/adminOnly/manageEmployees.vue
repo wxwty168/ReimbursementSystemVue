@@ -373,6 +373,7 @@ export default {
     getEmployeeRanks(){
       axios.get("/getEmployeeRanks").then(res => {
         this.employeeRanks = res.data
+        this.employeeRanks.splice(this.employeeRanks.findIndex(e => e.rank === 0), 1)
         console.log(this.employeeRanks)
       })
     },

@@ -43,18 +43,6 @@
               <span slot="title">报销统计</span>
             </el-menu-item>
 
-              <el-submenu index="5" v-if="isAdmin === '1'">
-                <template slot="title">
-                  <i class="el-icon-user"></i>
-                  <span slot="title">员工管理</span>
-                </template>
-                <el-menu-item index="5-1" @click="gotoEmployeeManagement('0')">
-                  <span slot="title">在职员工</span>
-                </el-menu-item>
-                <el-menu-item index="5-2" @click="gotoEmployeeManagement('1')">
-                  <span slot="title">离职员工</span>
-                </el-menu-item>
-              </el-submenu>
 
               <el-submenu index="3" v-if="isAdmin === '1'">
                 <template slot="title">
@@ -73,6 +61,18 @@
               </el-submenu>
 
 
+            <el-submenu index="5" v-if="isAdmin === '1'">
+              <template slot="title">
+                <i class="el-icon-user"></i>
+                <span slot="title">员工管理</span>
+              </template>
+              <el-menu-item index="5-1" @click="gotoEmployeeManagement('0')">
+                <span slot="title">在职员工</span>
+              </el-menu-item>
+              <el-menu-item index="5-2" @click="gotoEmployeeManagement('1')">
+                <span slot="title">离职员工</span>
+              </el-menu-item>
+            </el-submenu>
 
               <el-submenu index="4">
                 <template slot="title">
